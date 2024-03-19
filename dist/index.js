@@ -1,1 +1,1 @@
-"use strict";(()=>{window.Webflow;window.Webflow.push(()=>{document.body.classList.add("webflow-loaded")});})();
+"use strict";(()=>{window.Webflow;window.Webflow.push(()=>{document.body.classList.add("webflow-loaded");let o=document.querySelector('[dd-skip-to-main-content="trigger"]'),e=document.querySelector('[dd-skip-to-main-content="target"]');o&&e&&["click","keypress"].forEach(d=>{o.addEventListener(d,t=>{t.type==="keydown"&&t.which!==13||(t.preventDefault(),e.setAttribute("tabindex","-1"),e.focus())})})});})();
