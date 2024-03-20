@@ -4,12 +4,6 @@
  * @author <cabal@digerati.design>
  */
 export const formValidation = () => {
-    console.log('Form Validation');
-    /**
-     * DIGERATI Form Validation.
-     * 
-     * @author Digerati <cabal@digerati.design>
-     */
     class DigeratiFormValidation {
 
         /**
@@ -258,7 +252,6 @@ export const formValidation = () => {
             });
         }
     }
-
     const formValidation = new DigeratiFormValidation();
     formValidation.init();
 };
