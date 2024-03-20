@@ -104,8 +104,7 @@ export const formValidation = () => {
          *
          * @return {void}   
          */
-        handleSubmitEvent(e) {
-            e.preventDefault();
+        handleSubmitEvent() {
             const submitButton = e.target,
                 parentForm = submitButton.closest('form');
             const formFields = parentForm.querySelectorAll('input:not([type="submit"]), textarea, select');
@@ -119,8 +118,9 @@ export const formValidation = () => {
             if (!formError) {
                 submitButton.removeEventListener('click', this.handleSubmitEvent);
                 submitButton.removeEventListener('touchstart', this.handleSubmitEvent);
-                submitButton.click();
+                return true;
             }
+            return false;
         }
 
         /**
@@ -240,15 +240,6 @@ export const formValidation = () => {
                         });
                     });
                 }
-            });
-            /* Form Submit IX Trigger Event Listeners */
-            const formSubmitIxTriggers = document.querySelectorAll('[fs-formsubmit-element][data-animation-type="lottie"]');
-            formSubmitIxTriggers.forEach((formSubmitIxTrigger) => {
-                formSubmitIxTrigger.addEventListener('click', () => {
-                    const successMessage = formSubmitIxTrigger.closest('.w-form-done'),
-                        parentSection = formSubmitIxTrigger.closest('section');
-                    parentSection.scrollIntoView({ behavior: 'smooth' });
-                }, { passive: true });
             });
         }
     }
