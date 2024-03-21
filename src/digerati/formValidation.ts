@@ -104,7 +104,7 @@ export const formValidation = () => {
          *
          * @return {void}   
          */
-        handleSubmitEvent() {
+        handleSubmitEvent(e) {
             const submitButton = e.target,
                 parentForm = submitButton.closest('form');
             const formFields = parentForm.querySelectorAll('input:not([type="submit"]), textarea, select');
