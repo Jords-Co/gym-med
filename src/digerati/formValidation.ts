@@ -5,7 +5,6 @@
  */
 export const formValidation = () => {
     class DigeratiFormValidation {
-
         /**
          * Create a New Instance.
          *
@@ -105,6 +104,7 @@ export const formValidation = () => {
          * @return {void}   
          */
         handleSubmitEvent(e) {
+            e.preventDefault();
             const submitButton = e.target,
                 parentForm = submitButton.closest('form');
             const formFields = parentForm.querySelectorAll('input:not([type="submit"]), textarea, select');
@@ -118,9 +118,8 @@ export const formValidation = () => {
             if (!formError) {
                 submitButton.removeEventListener('click', this.handleSubmitEvent);
                 submitButton.removeEventListener('touchstart', this.handleSubmitEvent);
-                return true;
+                submitButton.click();
             }
-            return false;
         }
 
         /**
@@ -240,6 +239,17 @@ export const formValidation = () => {
                         });
                     });
                 }
+            });
+            /* Form Submit IX Trigger Event Listeners */
+            const formSubmitIxTriggers = document.querySelectorAll('[fs-formsubmit-element][data-animation-type="lottie"]');
+            formSubmitIxTriggers.forEach((formSubmitIxTrigger) => {
+                formSubmitIxTrigger.addEventListener('click', () => {
+                    const parentSection = formSubmitIxTrigger.closest('section');
+                    if (!parentSection) {
+                        return;
+                    }
+                    parentSection.scrollIntoView({ behavior: 'smooth' });
+                }, { passive: true });
             });
         }
     }
