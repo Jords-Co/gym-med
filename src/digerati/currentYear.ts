@@ -5,7 +5,6 @@
  */
 export const currentYear = () => {
     const target = document.querySelector('[dd-date="current-year"]');
-    console.log(target);
     if (!target) {
         return;
     }
