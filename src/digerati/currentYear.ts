@@ -4,10 +4,12 @@
  * @author <cabal@digerati.design>
  */
 export const currentYear = () => {
-    const target = document.querySelector('[dd-date="currentYear"]');
+    const target = document.querySelector('[dd-date="current-year"]');
+    console.log(target);
     if (!target) {
         return;
     }
-    target.innerText = new Date().getFullYear().toString();
+    const fullYear = new Date().getFullYear();
+    target.innerText = fullYear.toString();
 };
 
