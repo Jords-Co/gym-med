@@ -1,3 +1,5 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
 
 /**
@@ -49,7 +51,7 @@ export const blurInElements = () => {
     if (!elements) {
         return;
     }
-    // gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
     elements.forEach((element) => {
         new MutationObserver(function () {
             element.classList.remove('text-style-hidden');
@@ -67,12 +69,12 @@ export const blurInElements = () => {
             y: 20,
             blur: 10,
             autoAlpha: 0,
-            stagger: 0.025,
+            stagger: 0.01,
             scrollTrigger: {
                 trigger: element,
-                start: "top 60%",
-                end: "bottom 50%",
-                markers: "true",
+                start: 'top bottom',
+                end: 'top center',
+                // scrub: 1
             },
         });
     });
