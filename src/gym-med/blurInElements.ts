@@ -49,7 +49,16 @@ export const blurInElements = () => {
     if (!h1) {
         return;
     }
-    var split = new SplitType(h1, { type: "chars,words,lines", position: "absolute" });
+    new MutationObserver(function () {
+        h1.classList.remove('text-style-hidden');
+    }).observe(h1, {
+        subtree: true,
+        childList: true
+    });
+    const split = new SplitType(h1, {
+        type: 'chars,words,lines',
+        position: 'absolute'
+    });
     gsap.from(split.chars, {
         duration: 1,
         y: 20,
