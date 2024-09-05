@@ -45,26 +45,36 @@ import SplitType from 'split-type';
  * @author <cabal@digerati.design>
  */
 export const blurInElements = () => {
-    const h1 = document.querySelector('h1');
-    if (!h1) {
+    const elements = document.querySelectorAll('.text-style-hidden');
+    if (!elements) {
         return;
     }
-    new MutationObserver(function () {
-        h1.classList.remove('text-style-hidden');
-    }).observe(h1, {
-        subtree: true,
-        childList: true
-    });
-    const split = new SplitType(h1, {
-        type: 'chars,words,lines',
-        position: 'absolute'
-    });
-    gsap.from(split.chars, {
-        duration: 1,
-        y: 20,
-        blur: 10,
-        autoAlpha: 0,
-        stagger: 0.05
+    // gsap.registerPlugin(ScrollTrigger);
+    elements.forEach((element) => {
+        new MutationObserver(function () {
+            element.classList.remove('text-style-hidden');
+        }).observe(element, {
+            subtree: true,
+            childList: true
+        });
+        let split = new SplitType(element, {
+            type: 'chars,words,lines',
+            position: 'absolute'
+        });
+        gsap.from(split.chars, {
+            ease: 'ease',
+            duration: 1,
+            y: 20,
+            blur: 10,
+            autoAlpha: 0,
+            stagger: 0.025,
+            scrollTrigger: {
+                trigger: element,
+                start: "top 60%",
+                end: "bottom 50%",
+                markers: "true",
+            },
+        });
     });
 };
 
