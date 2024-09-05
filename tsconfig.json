@@ -6,6 +6,9 @@
     "paths": {
       "$digerati/*": [
         "src/digerati/*"
+      ],
+      "$gym-med/*": [
+        "src/gym-med/*"
       ]
     },
     "types": [
