@@ -62,7 +62,7 @@ export const blurInElements = () => {
     gsap.from(split.chars, {
         duration: 1,
         y: 20,
-        blur: 20,
+        blur: 10,
         autoAlpha: 0,
         stagger: 0.05
     });
