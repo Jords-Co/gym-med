@@ -69,12 +69,11 @@ export const blurInElements = () => {
             y: 20,
             blur: 10,
             autoAlpha: 0,
-            stagger: 0.01,
+            stagger: 0.025,
             scrollTrigger: {
                 trigger: element,
                 start: 'top bottom',
                 end: 'top center',
-                // scrub: 1
             },
         });
     });
