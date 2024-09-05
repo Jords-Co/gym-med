@@ -72,7 +72,7 @@ export const blurInElements = () => {
             stagger: 0.025,
             scrollTrigger: {
                 trigger: element,
-                start: 'top bottom',
+                start: 'bottom bottom',
                 end: 'top center',
             },
         });
