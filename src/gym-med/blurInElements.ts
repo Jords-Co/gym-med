@@ -81,7 +81,6 @@ export const blurInElements = () => {
                 char.style.backgroundSize = char.parentElement.parentElement?.offsetWidth + 'px 100%';
                 offset += char.previousElementSibling?.offsetWidth || 0;
                 char.style.backgroundPosition = char.parentElement?.parentElement.offsetWidth - offset + 'px 0%';
-                console.log(char.parentElement?.parentElement.offsetWidth, offset);
             });
         });
         gsap.from(split.chars, {
