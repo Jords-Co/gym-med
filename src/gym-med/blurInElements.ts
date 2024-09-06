@@ -70,16 +70,19 @@ export const blurInElements = () => {
         * 
         * @link https://gsap.com/community/forums/topic/28020-splittext-gradient-text-is-it-possible/
         */
-        const gradientChars = element.querySelectorAll('.line > .word > .char');
-        if (!gradientChars) {
+        const gradientLines = element.querySelectorAll('.line');
+        if (!gradientLines) {
             return;
         }
-        let offset = 0;
-        gradientChars.forEach(function (char, i) {
-            char.style.backgroundSize = char.parentElement.parentElement?.offsetWidth + 'px 100%';
-            offset += char.previousElementSibling?.offsetWidth || 0;
-            char.style.backgroundPosition = char.parentElement?.parentElement.offsetWidth - offset + 'px 0%';
-            console.log(char.parentElement?.parentElement.offsetWidth, offset);
+        gradientLines.forEach(function (line) {
+            let offset = 0;
+            let gradientChars = line.querySelectorAll('.word > .char');
+            gradientChars.forEach(function (char) {
+                char.style.backgroundSize = char.parentElement.parentElement?.offsetWidth + 'px 100%';
+                offset += char.previousElementSibling?.offsetWidth || 0;
+                char.style.backgroundPosition = char.parentElement?.parentElement.offsetWidth - offset + 'px 0%';
+                console.log(char.parentElement?.parentElement.offsetWidth, offset);
+            });
         });
         gsap.from(split.chars, {
             ease: 'ease',
