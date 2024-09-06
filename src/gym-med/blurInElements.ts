@@ -51,10 +51,12 @@ export const blurInElements = () => {
     if (!elements) {
         return;
     }
+    /* Elements exist, let's register ScrollTrigger */
     gsap.registerPlugin(ScrollTrigger);
     elements.forEach((element) => {
         new MutationObserver(function () {
             element.classList.remove('text-style-hidden');
+            element.classList.add('split-type-gradient-chars');
         }).observe(element, {
             subtree: true,
             childList: true
@@ -62,6 +64,22 @@ export const blurInElements = () => {
         let split = new SplitType(element, {
             type: 'chars,words,lines',
             position: 'absolute'
+        });
+        /*
+        * Fix for Text Gradient
+        * 
+        * @link https://gsap.com/community/forums/topic/28020-splittext-gradient-text-is-it-possible/
+        */
+        const gradientChars = element.querySelectorAll('.line > .word > .char');
+        if (!gradientChars) {
+            return;
+        }
+        let offset = 0;
+        gradientChars.forEach(function (char, i) {
+            char.style.backgroundSize = char.parentElement.parentElement?.offsetWidth + 'px 100%';
+            offset += char.previousElementSibling?.offsetWidth || 0;
+            char.style.backgroundPosition = char.parentElement?.parentElement.offsetWidth - offset + 'px 0%';
+            console.log(char.parentElement?.parentElement.offsetWidth, offset);
         });
         gsap.from(split.chars, {
             ease: 'ease',
