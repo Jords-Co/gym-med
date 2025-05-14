@@ -1,3 +1,7 @@
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitType from 'split-type';
+
 /**
  * Blur Property Filter.
  * 
@@ -47,11 +51,8 @@ export const blurInElements = () => {
     if (!elements) {
         return;
     }
-    /**
-    * Elements exist, no need to register either
-    * ScrollTrigger or SplitText as they're
-    * already registered by Webflow
-    */
+    /* Elements exist, let's register ScrollTrigger */
+    gsap.registerPlugin(ScrollTrigger);
     elements.forEach((element) => {
         new MutationObserver(function () {
             element.classList.remove('text-style-hidden');
@@ -60,10 +61,38 @@ export const blurInElements = () => {
             subtree: true,
             childList: true
         });
-        let split = new SplitText(element, {
+        let split = new SplitType(element, {
             type: 'chars,words,lines',
             position: 'absolute'
-        }); /* Possible new solution for Gradient Text if Jords wants it: https://codepen.io/tomasomnc/pen/vEYdqYp */
+        });
+        /*
+        * Fix for Text Gradient
+        * 
+        * @link https://gsap.com/community/forums/topic/28020-splittext-gradient-text-is-it-possible/
+        */
+        const gradientLines = element.querySelectorAll('.line');
+        if (!gradientLines) {
+            return;
+        }
+        gradientLines.forEach(function (line) {
+            const elementWidth = element.getBoundingClientRect().width;
+            let offset = 0;
+            let gradientWords = line.querySelectorAll('.word');
+            if (!gradientWords) {
+                return;
+            }
+            gradientWords.forEach(function (word) {
+                let gradientChars = word.querySelectorAll('.char');
+                if (!word.parentElement.classList.contains('text-color-white')) {
+                    return;
+                }
+                gradientChars.forEach(function (char) {
+                    char.style.backgroundSize = char.parentElement.parentElement?.offsetWidth + 'px 100%';
+                    offset += char.previousElementSibling?.offsetWidth || 0;
+                    char.style.backgroundPosition = char.parentElement?.parentElement.offsetWidth - offset + 'px 0%';
+                });
+            });
+        });
         gsap.from(split.chars, {
             ease: 'ease',
             duration: 1,
